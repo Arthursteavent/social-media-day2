@@ -1,9 +1,22 @@
+import { router } from "expo-router";
 import React, { useState } from "react";
 import { Button, Text, TextInput, View } from "react-native";
 
 const Page = () => {
+
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
+  const usernamePlaceholder = "Artur";
+  const passwordPlaceholder = "Artur123";
+  const handleLogin = () => {
+    if (username === usernamePlaceholder && password === passwordPlaceholder) {
+      router.push("/home")
+    }
+    else {
+      console.log("error")
+    }
+  }
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Login</Text>
@@ -27,9 +40,7 @@ const Page = () => {
           marginBottom: 10,
         }}
       />
-      <Text>{username}</Text>
-      <Text>{password}</Text>
-      <Button onPress={() => console.log("t")} title="login" />
+      <Button onPress={handleLogin} title="login" />
     </View>
   );
 };
