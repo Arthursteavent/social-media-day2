@@ -1,28 +1,46 @@
+import { useLogin } from "@/hooks/useUser";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
-import React, { useState } from "react";
-import { Button, Text, TextInput, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator, Button, Text, TextInput, View } from "react-native";
 
 const Page = () => {
 
-  const [username, setusername] = useState("");
+  const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-  const usernamePlaceholder = "Arthur";
-  const passwordPlaceholder = "Arthur123";
-  const handleLogin = () => {
-    if (username === usernamePlaceholder && password === passwordPlaceholder) {
-      router.push("/home")
-    }
-    else {
-      console.log("error")
+  const { mutate: login, isPending } = useLogin()
+
+  const handleUserLoggedIn = async() => {
+    const userToken = await AsyncStorage.getItem("token")
+    if(userToken){
+      router.replace("/(tabs)/home")
     }
   }
+
+  const handleLogin = () => {
+    try {
+      login({
+        email: email,
+        password: password
+      });
+    } catch (error) {
+      console.log(error)
+    }
+
+
+  }
+
+useEffect(() => {
+  handleUserLoggedIn()
+}, [])
+
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Login</Text>
-      <Text>Username</Text>
+      <Text>Email</Text>
       <TextInput
-        onChangeText={(text) => setusername(text)}
+        onChangeText={(text) => setemail(text)}
         style={{
           borderColor: "black",
           borderWidth: 1,
@@ -40,7 +58,11 @@ const Page = () => {
           marginBottom: 10,
         }}
       />
-      <Button onPress={handleLogin} title="login" />
+      {isPending ? <ActivityIndicator /> : (
+        <Button onPress={handleLogin} title="login" />
+      )}
+
+      <Button onPress={() => router.push("/auth/register")} title="go to register" />
     </View>
   );
 };
