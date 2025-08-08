@@ -20,6 +20,7 @@ const Home = () => {
        <StoryBubble/>
        <StoryBubble/>
        <StoryBubble/>
+       <StoryBubble/>
       </ScrollView>
       <Postcard/>
       <Postcard/>

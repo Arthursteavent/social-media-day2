@@ -6,8 +6,8 @@ const Page = () => {
 
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
-  const usernamePlaceholder = "Artur";
-  const passwordPlaceholder = "Artur123";
+  const usernamePlaceholder = "Arthur";
+  const passwordPlaceholder = "Arthur123";
   const handleLogin = () => {
     if (username === usernamePlaceholder && password === passwordPlaceholder) {
       router.push("/home")

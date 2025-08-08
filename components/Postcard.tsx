@@ -4,7 +4,6 @@ import { Ionicons } from '@expo/vector-icons'
 
 const Postcard = () => {
   return (
-    
 
       <View style={{ flexDirection: "column" }}>
         <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: 25, alignContent: "center", marginBottom: 10 }}>
